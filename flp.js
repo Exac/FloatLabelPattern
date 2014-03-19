@@ -4,7 +4,6 @@ if(!window.jQuery) {
 	jq.src = 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js';
 	// jq.async = false;
 	document.getElementsByTagName('head')[0].appendChild(jq);
-	console.log("jquery is missing.");
 
 	var checkReady = function(callback) {
 		if (window.jQuery) {
@@ -23,12 +22,13 @@ if(!window.jQuery) {
 }
 
 function flp() {
-	$("input").each(function(i,formElement){//add a placeholder to the input
+	$("input, select").each(function(i,formElement){//add a placeholder to the input
 		var label = $("label[for='"+$(this).attr('id')+"']");//element's label
 		if(!$(this).attr('placeholder') && $(label).html() ){//if the label exists and there is no placeholder already
 			$(this).attr('placeholder', label.html().replace(/(<([^>]+)>)/ig,"") );//wrap label in div.field--wrapper
 		}
-		$(label).next('input[type=text], input[type=password]').andSelf().wrapAll("<div class='field--wrapper'></div>");
+		// $(label).next('input[type=text], input[type=password]').andSelf().wrapAll("<div class='field--wrapper'></div>");
+		$(label).next('input, select').andSelf().wrapAll("<div class='field--wrapper'></div>");
 		$(this).insertAfter(label);
 	});
 
